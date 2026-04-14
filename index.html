@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///Users/nealscoppettuolo/Downloads/index_1.html -->
+<!-- saved from url=(0053)file:///Users/nealscoppettuolo/Downloads/index_2.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -8,7 +8,6 @@
   <link href="./index_files/css2" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
       --red: #E8251A;
       --orange: #F26522;
@@ -18,43 +17,63 @@
       --cream: #F5F0E8;
       --white: #ffffff;
       --gray: #888888;
-      --navy: #1B2A6B;
     }
-
-    html { scroll-behavior: smooth; }
-
-    body {
+    html, body {
+      height: 100%;
       font-family: 'Barlow', sans-serif;
       background: var(--dark);
       color: var(--white);
-      line-height: 1.5;
       -webkit-font-smoothing: antialiased;
-    }
-
-    /* ── HERO ─────────────────────────────────────────────────── */
-    .hero {
-      background: var(--dark);
-      min-height: 100svh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 48px 24px 40px;
-      position: relative;
       overflow: hidden;
     }
 
-    .hero::before {
-      content: '';
-      position: absolute;
+    /* ── PAGES ───────────────────────────────────────────────── */
+    .page {
+      display: none;
+      position: fixed;
       inset: 0;
-      background: radial-gradient(ellipse at 80% 20%, rgba(232,37,26,0.15) 0%, transparent 60%),
-                  radial-gradient(ellipse at 20% 80%, rgba(242,101,34,0.08) 0%, transparent 50%);
-      pointer-events: none;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .page.active { display: flex; flex-direction: column; }
+
+    .page-inner {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 24px 40px;
+      width: 100%;
+      max-width: 540px;
+      margin: 0 auto;
+      text-align: center;
+      min-height: 100svh;
     }
 
-    .hero-badge {
+    /* ── BACK BUTTON ─────────────────────────────────────────── */
+    .back-btn {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      z-index: 100;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      gap: 6px;
+    }
+    .back-btn.show { display: flex; }
+
+    /* ── BADGE ───────────────────────────────────────────────── */
+    .badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
@@ -63,157 +82,208 @@
       border-radius: 4px;
       padding: 6px 14px;
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--orange);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
 
-    .hero-badge::before {
-      content: '⚠';
-      font-size: 12px;
-    }
-
-    .hero h1 {
+    /* ── HEADLINES ───────────────────────────────────────────── */
+    .headline {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: clamp(44px, 12vw, 72px);
+      font-size: clamp(42px, 11vw, 68px);
       font-weight: 900;
       line-height: 0.95;
       text-transform: uppercase;
       letter-spacing: -0.02em;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
+    .headline .red { color: var(--red); }
+    .headline .orange { color: var(--orange); }
 
-    .hero h1 .accent { color: var(--red); }
-    .hero h1 .accent2 { color: var(--orange); }
-
-    .hero-sub {
-      font-size: 18px;
+    .subhead {
+      font-size: 17px;
       font-weight: 500;
-      color: rgba(255,255,255,0.75);
-      line-height: 1.5;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.55;
       margin-bottom: 32px;
-      max-width: 500px;
-      text-align: center;
+      max-width: 420px;
     }
+    .subhead strong { color: var(--white); }
 
-    .hero-sub strong { color: var(--white); }
-
-    .cta-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      background: var(--red);
-      color: var(--white);
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 20px;
-      font-weight: 800;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding: 18px 36px;
-      border-radius: 4px;
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-      width: 100%;
-      max-width: 440px;
-      transition: background 0.15s, transform 0.1s;
-    }
-
-    .cta-btn:active { background: #c41f15; transform: scale(0.98); }
-
-    .hero-trust {
-      margin-top: 16px;
-      font-size: 13px;
-      color: var(--gray);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .hero-trust span { display: flex; align-items: center; gap: 5px; }
-    .hero-trust span::before { content: '✓'; color: var(--orange); font-weight: 700; }
-
-    /* ── URGENCY STRIP ────────────────────────────────────────── */
-    .urgency-strip {
-      background: var(--red);
-      padding: 16px 24px;
-      text-align: center;
-    }
-
-    .urgency-strip p {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: clamp(16px, 4vw, 20px);
-      font-weight: 800;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      line-height: 1.3;
-    }
-
-    /* ── RISK SECTION ─────────────────────────────────────────── */
-    .risk-section {
-      background: var(--dark2);
-      padding: 56px 24px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .risk-section > * { width: 100%; max-width: 540px; }
-
-    .section-label {
+    /* ── SECTION LABEL ───────────────────────────────────────── */
+    .sec-label {
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 12px;
       font-weight: 700;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--orange);
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
-    .section-title {
+    /* ── BUTTONS ─────────────────────────────────────────────── */
+    .btn-primary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      max-width: 440px;
+      padding: 18px;
+      background: var(--red);
+      color: var(--white);
+      border: none;
+      border-radius: 6px;
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: clamp(32px, 8vw, 52px);
+      font-size: 20px;
       font-weight: 900;
-      line-height: 1;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      letter-spacing: -0.01em;
-      margin-bottom: 24px;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+      text-decoration: none;
     }
+    .btn-primary:active { background: #c41f15; transform: scale(0.98); }
+    .btn-primary:disabled { background: #ccc; cursor: not-allowed; transform: none; }
 
-    .risk-cards {
-      display: grid;
+    .btn-secondary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      max-width: 440px;
+      padding: 16px;
+      background: transparent;
+      color: var(--white);
+      border: 1.5px solid rgba(255,255,255,0.25);
+      border-radius: 6px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .btn-secondary:active { background: rgba(255,255,255,0.05); }
+
+    .btn-stack {
+      display: flex;
+      flex-direction: column;
       gap: 12px;
-      margin-top: 28px;
+      width: 100%;
+      align-items: center;
     }
 
-    .risk-card {
+    /* ── TRUST BAR ───────────────────────────────────────────── */
+    .trust-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+      font-size: 12px;
+      color: var(--gray);
+    }
+    .trust-bar span::before { content: '✓ '; color: var(--orange); font-weight: 700; }
+
+    /* ── CARDS ───────────────────────────────────────────────── */
+    .cards { display: flex; flex-direction: column; gap: 12px; width: 100%; margin-bottom: 28px; }
+
+    .card {
       background: var(--dark3);
       border: 1px solid rgba(255,255,255,0.06);
       border-left: 3px solid var(--red);
       border-radius: 6px;
-      padding: 18px 20px;
+      padding: 16px 18px;
       display: flex;
-      gap: 16px;
+      gap: 14px;
       align-items: flex-start;
+      text-align: left;
     }
 
-    .risk-num {
+    .card-num {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 36px;
+      font-size: 34px;
       font-weight: 900;
       color: var(--red);
       line-height: 1;
       flex-shrink: 0;
-      min-width: 40px;
+      min-width: 36px;
     }
 
-    .risk-card h3 {
+    .card h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 17px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 4px;
+    }
+    .card p { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.5; }
+
+    .stat-box {
+      background: var(--red);
+      border-radius: 6px;
+      padding: 20px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      text-align: left;
+      margin-bottom: 28px;
+    }
+    .stat-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 56px;
+      font-weight: 900;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .stat-text { font-size: 14px; font-weight: 600; line-height: 1.4; }
+
+    /* ── STEPS ───────────────────────────────────────────────── */
+    .steps { display: flex; flex-direction: column; gap: 0; width: 100%; margin-bottom: 24px; }
+
+    .step {
+      display: flex;
+      gap: 16px;
+      padding-bottom: 24px;
+      text-align: left;
+    }
+    .step:last-child { padding-bottom: 0; }
+
+    .step-line { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+
+    .step-dot {
+      width: 36px;
+      height: 36px;
+      background: var(--orange);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .step-connector {
+      width: 2px;
+      flex: 1;
+      background: rgba(242,101,34,0.25);
+      margin: 5px 0;
+      min-height: 18px;
+    }
+    .step:last-child .step-connector { display: none; }
+
+    .step-content { padding-top: 6px; }
+    .step-content h3 {
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 18px;
       font-weight: 800;
@@ -221,566 +291,322 @@
       letter-spacing: 0.04em;
       margin-bottom: 4px;
     }
+    .step-content p { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.5; }
 
-    .risk-card p { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 1.5; }
-
-    .stat-box {
-      background: var(--red);
-      border-radius: 6px;
-      padding: 24px;
-      margin-top: 20px;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .stat-num {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 64px;
-      font-weight: 900;
-      line-height: 1;
-      flex-shrink: 0;
-    }
-
-    .stat-text { font-size: 15px; font-weight: 600; line-height: 1.4; }
-
-    /* ── HOW IT WORKS ─────────────────────────────────────────── */
-    .how-section {
-      background: var(--dark);
-      padding: 56px 24px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .how-section > * { width: 100%; max-width: 540px; }
-
-    .steps {
-      display: grid;
-      gap: 0;
-      margin-top: 28px;
-      position: relative;
-    }
-
-    .step {
-      display: flex;
-      gap: 20px;
-      padding-bottom: 32px;
-      position: relative;
-    }
-
-    .step:last-child { padding-bottom: 0; }
-
-    .step-line {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      flex-shrink: 0;
-    }
-
-    .step-dot {
-      width: 40px;
-      height: 40px;
-      background: var(--orange);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 20px;
-      font-weight: 900;
-      flex-shrink: 0;
-    }
-
-    .step-connector {
-      width: 2px;
-      flex: 1;
-      background: rgba(242,101,34,0.25);
-      margin: 6px 0;
-      min-height: 24px;
-    }
-
-    .step:last-child .step-connector { display: none; }
-
-    .step-content { padding-top: 8px; }
-
-    .step-content h3 {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 20px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      margin-bottom: 6px;
-    }
-
-    .step-content p { font-size: 15px; color: rgba(255,255,255,0.65); line-height: 1.5; }
-
-    .outcome-cards {
-      display: grid;
-      gap: 10px;
-      margin-top: 32px;
-    }
+    .outcome-cards { display: flex; flex-direction: column; gap: 10px; width: 100%; margin-bottom: 28px; }
 
     .outcome-card {
       background: var(--dark2);
       border: 1px solid rgba(255,255,255,0.07);
       border-radius: 6px;
-      padding: 16px 18px;
+      padding: 14px 16px;
       display: flex;
-      gap: 14px;
+      gap: 12px;
       align-items: flex-start;
+      text-align: left;
     }
-
     .outcome-icon {
-      width: 36px;
-      height: 36px;
+      width: 34px;
+      height: 34px;
       background: rgba(242,101,34,0.15);
       border-radius: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
+      font-size: 16px;
       flex-shrink: 0;
     }
-
     .outcome-card h4 {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.04em;
       margin-bottom: 3px;
       color: var(--orange);
     }
+    .outcome-card p { font-size: 12px; color: rgba(255,255,255,0.55); line-height: 1.4; }
 
-    .outcome-card p { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.4; }
+    /* ── FORM PAGE ───────────────────────────────────────────── */
+    #page-form { background: var(--cream); color: var(--dark); }
+    #page-form .page-inner { justify-content: flex-start; padding-top: 64px; }
+    #page-form .back-btn { color: var(--dark); background: rgba(0,0,0,0.06); border-color: rgba(0,0,0,0.12); }
 
-    /* ── FORM SECTION ─────────────────────────────────────────── */
-    .form-section {
-      background: var(--cream);
+    .form-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(28px, 7vw, 42px);
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 1;
+      margin-bottom: 6px;
       color: var(--dark);
-      padding: 56px 24px 64px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
     }
+    .form-title span { color: var(--red); }
 
-    .form-section > * { width: 100%; max-width: 540px; }
-
-    .form-section .section-label { color: var(--red); }
-    .form-section .section-title { color: var(--dark); }
-
-    .form-section .section-title span { color: var(--red); }
+    .form-sub { font-size: 14px; color: #555; margin-bottom: 24px; line-height: 1.5; }
 
     .form-card {
       background: var(--white);
       border-radius: 8px;
-      padding: 28px 24px;
-      margin-top: 28px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+      padding: 24px 20px;
+      width: 100%;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.1);
     }
 
-    .form-group { margin-bottom: 18px; }
-
+    .form-group { margin-bottom: 16px; }
     .form-group label {
       display: block;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: #444;
-      margin-bottom: 6px;
+      margin-bottom: 5px;
     }
-
     .form-group label span { color: var(--red); }
-
     .form-group input {
       width: 100%;
-      height: 50px;
+      height: 48px;
       border: 1.5px solid #ddd;
       border-radius: 6px;
-      padding: 0 14px;
+      padding: 0 12px;
       font-family: 'Barlow', sans-serif;
       font-size: 16px;
       color: var(--dark);
       background: #fafafa;
-      transition: border-color 0.15s;
       -webkit-appearance: none;
+      transition: border-color 0.15s;
     }
-
-    .form-group input:focus {
-      outline: none;
-      border-color: var(--red);
-      background: var(--white);
-    }
-
+    .form-group input:focus { outline: none; border-color: var(--red); background: #fff; }
     .form-group input.error { border-color: var(--red); }
 
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
-    /* Signature */
-    .sig-section { margin-top: 8px; }
+    .sig-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #444; margin-bottom: 8px; }
 
-    .sig-label {
-      font-size: 13px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #444;
-      margin-bottom: 10px;
-    }
-
-    .sig-toggle {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 14px;
-    }
-
+    .sig-toggle { display: flex; gap: 8px; margin-bottom: 12px; }
     .sig-toggle-btn {
-      flex: 1;
-      padding: 10px;
-      border-radius: 6px;
-      border: 1.5px solid #ddd;
+      flex: 1; padding: 9px;
+      border-radius: 6px; border: 1.5px solid #ddd;
       background: #fafafa;
-      font-family: 'Barlow', sans-serif;
-      font-size: 14px;
-      font-weight: 600;
-      color: #666;
-      cursor: pointer;
-      transition: all 0.15s;
+      font-family: 'Barlow', sans-serif; font-size: 13px; font-weight: 600; color: #666;
+      cursor: pointer; transition: all 0.15s;
     }
-
-    .sig-toggle-btn.active {
-      border-color: var(--red);
-      background: rgba(232,37,26,0.05);
-      color: var(--red);
-    }
+    .sig-toggle-btn.active { border-color: var(--red); background: rgba(232,37,26,0.05); color: var(--red); }
 
     #sig-canvas-wrap {
-      border: 1.5px dashed #ccc;
-      border-radius: 6px;
-      background: #f9f9f9;
-      position: relative;
-      overflow: hidden;
+      border: 1.5px dashed #ccc; border-radius: 6px;
+      background: #f9f9f9; position: relative; overflow: hidden;
     }
-
-    #sig-canvas {
-      display: block;
-      width: 100%;
-      height: 140px;
-      cursor: crosshair;
-      touch-action: none;
-    }
-
+    #sig-canvas { display: block; width: 100%; height: 130px; cursor: crosshair; touch-action: none; }
     .sig-placeholder {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 15px;
-      color: #bbb;
-      pointer-events: none;
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; color: #bbb; pointer-events: none;
     }
-
     .sig-clear {
-      font-size: 12px;
-      color: var(--red);
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 6px 0;
-      font-family: 'Barlow', sans-serif;
-      font-weight: 600;
-      text-decoration: underline;
+      font-size: 12px; color: var(--red); background: none; border: none;
+      cursor: pointer; padding: 5px 0; font-family: 'Barlow', sans-serif;
+      font-weight: 600; text-decoration: underline;
     }
-
     #typed-sig-wrap { display: none; }
-
     #typed-sig-input {
-      width: 100%;
-      height: 80px;
-      border: 1.5px dashed #ccc;
-      border-radius: 6px;
-      padding: 12px 14px;
-      font-size: 28px;
-      font-family: 'Brush Script MT', cursive;
-      color: var(--dark);
-      background: #f9f9f9;
-      resize: none;
+      width: 100%; height: 72px; border: 1.5px dashed #ccc; border-radius: 6px;
+      padding: 10px 12px; font-size: 26px; font-family: 'Brush Script MT', cursive;
+      color: var(--dark); background: #f9f9f9; resize: none;
     }
 
-    /* Agreement */
     .agreement-box {
-      background: #f7f7f7;
-      border: 1px solid #e5e5e5;
-      border-radius: 6px;
-      padding: 14px;
-      margin: 20px 0;
-      font-size: 12px;
-      color: #555;
-      line-height: 1.6;
-      max-height: 140px;
-      overflow-y: auto;
+      background: #f7f7f7; border: 1px solid #e5e5e5; border-radius: 6px;
+      padding: 12px; margin: 16px 0; font-size: 11px; color: #555;
+      line-height: 1.6; max-height: 120px; overflow-y: auto;
     }
 
-    .submit-btn {
-      width: 100%;
-      padding: 18px;
-      background: var(--red);
-      color: var(--white);
-      border: none;
-      border-radius: 6px;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 22px;
-      font-weight: 900;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      cursor: pointer;
+    .form-submit-btn {
+      width: 100%; padding: 16px;
+      background: var(--red); color: var(--white); border: none; border-radius: 6px;
+      font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 900;
+      letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer;
       transition: background 0.15s, transform 0.1s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
     }
-
-    .submit-btn:active { transform: scale(0.98); background: #c41f15; }
-    .submit-btn:disabled { background: #ccc; cursor: not-allowed; transform: none; }
+    .form-submit-btn:active { transform: scale(0.98); background: #c41f15; }
+    .form-submit-btn:disabled { background: #ccc; cursor: not-allowed; transform: none; }
 
     .form-trust {
-      margin-top: 14px;
-      text-align: center;
-      font-size: 12px;
-      color: #888;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
+      margin-top: 12px; text-align: center;
+      font-size: 11px; color: #888; line-height: 1.7;
     }
 
-    /* ── OVERLAY ──────────────────────────────────────────────── */
-    .overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(4px);
-      z-index: 999;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-    }
-
-    .overlay.show { display: flex; }
-
-    .overlay-card {
-      background: var(--white);
-      color: var(--dark);
-      border-radius: 12px;
-      padding: 32px 28px;
-      max-width: 420px;
-      width: 100%;
-      text-align: center;
-    }
-
-    .spinner {
-      width: 48px;
-      height: 48px;
-      border: 4px solid #eee;
-      border-top-color: var(--red);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin: 0 auto 20px;
-    }
-
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    .overlay-card h3 {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 24px;
-      font-weight: 900;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-
-    .overlay-card p { font-size: 15px; color: #666; line-height: 1.5; }
-
-    /* ── THANK YOU ────────────────────────────────────────────── */
-    #thankyou {
-      display: none;
-      min-height: 100svh;
-      background: var(--dark);
-      align-items: center;
-      justify-content: center;
-      padding: 48px 24px;
-      flex-direction: column;
-      text-align: center;
-    }
-
-    #thankyou.show { display: flex; }
+    /* ── THANK YOU ───────────────────────────────────────────── */
+    #page-thanks .page-inner { justify-content: center; }
 
     .ty-icon {
-      width: 80px;
-      height: 80px;
-      background: rgba(232,37,26,0.15);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 40px;
-      margin: 0 auto 24px;
+      width: 72px; height: 72px;
+      background: rgba(232,37,26,0.12); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 36px; margin-bottom: 20px;
       border: 2px solid var(--red);
     }
 
     .ty-title {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: clamp(36px, 9vw, 56px);
-      font-weight: 900;
-      text-transform: uppercase;
-      line-height: 1;
-      margin-bottom: 16px;
+      font-size: clamp(34px, 9vw, 52px);
+      font-weight: 900; text-transform: uppercase; line-height: 1;
+      margin-bottom: 14px;
     }
-
     .ty-title span { color: var(--orange); }
 
     .ty-sub {
-      font-size: 17px;
-      color: rgba(255,255,255,0.7);
-      max-width: 380px;
-      margin: 0 auto 36px;
-      line-height: 1.6;
+      font-size: 16px; color: rgba(255,255,255,0.7);
+      max-width: 360px; margin: 0 auto 28px; line-height: 1.6;
     }
 
-    .ty-steps {
-      display: grid;
-      gap: 12px;
-      max-width: 420px;
-      width: 100%;
-      text-align: left;
-      margin: 0 auto 32px;
-    }
-
+    .ty-steps { display: flex; flex-direction: column; gap: 10px; width: 100%; margin-bottom: 24px; text-align: left; }
     .ty-step {
-      background: var(--dark2);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-left: 3px solid var(--orange);
-      border-radius: 6px;
-      padding: 14px 16px;
-      display: flex;
-      gap: 12px;
-      align-items: center;
+      background: var(--dark2); border: 1px solid rgba(255,255,255,0.07);
+      border-left: 3px solid var(--orange); border-radius: 6px;
+      padding: 12px 14px; display: flex; gap: 12px; align-items: center;
     }
-
     .ty-step-num {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 24px;
-      font-weight: 900;
-      color: var(--orange);
-      flex-shrink: 0;
-      width: 28px;
+      font-family: 'Barlow Condensed', sans-serif; font-size: 22px;
+      font-weight: 900; color: var(--orange); flex-shrink: 0; width: 24px;
     }
-
-    .ty-step p { font-size: 14px; line-height: 1.4; color: rgba(255,255,255,0.8); }
+    .ty-step p { font-size: 13px; line-height: 1.4; color: rgba(255,255,255,0.8); }
     .ty-step p strong { color: var(--white); }
 
     .ty-contact {
-      background: var(--dark2);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 8px;
-      padding: 20px;
-      max-width: 420px;
-      width: 100%;
-      margin: 0 auto;
+      background: var(--dark2); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px; padding: 18px; width: 100%; text-align: center;
     }
+    .ty-contact p { font-size: 13px; color: rgba(255,255,255,0.55); margin-bottom: 6px; }
+    .ty-contact a { color: var(--orange); font-weight: 700; text-decoration: none; font-size: 20px; }
 
-    .ty-contact p { font-size: 14px; color: rgba(255,255,255,0.6); margin-bottom: 8px; }
-    .ty-contact a { color: var(--orange); font-weight: 600; text-decoration: none; font-size: 18px; }
-
-    /* ── FOOTER ───────────────────────────────────────────────── */
-    footer {
-      background: #0a0a0a;
-      padding: 24px;
-      text-align: center;
-      font-size: 12px;
-      color: #444;
-      line-height: 1.6;
+    /* ── LOADING OVERLAY ─────────────────────────────────────── */
+    .overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.85); backdrop-filter: blur(4px);
+      z-index: 999; align-items: center; justify-content: center; padding: 24px;
     }
+    .overlay.show { display: flex; }
+    .overlay-card {
+      background: var(--white); color: var(--dark); border-radius: 12px;
+      padding: 32px 28px; max-width: 380px; width: 100%; text-align: center;
+    }
+    .spinner {
+      width: 44px; height: 44px; border: 4px solid #eee; border-top-color: var(--red);
+      border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 18px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .overlay-card h3 {
+      font-family: 'Barlow Condensed', sans-serif; font-size: 22px;
+      font-weight: 900; text-transform: uppercase; margin-bottom: 6px;
+    }
+    .overlay-card p { font-size: 14px; color: #666; line-height: 1.5; }
 
-    footer a { color: #666; }
-
-    /* ── MAIN PAGE WRAPPER ────────────────────────────────────── */
-    #main-page { display: block; }
+    /* ── FOOTER ──────────────────────────────────────────────── */
+    .page-footer {
+      background: #0a0a0a; padding: 20px 24px;
+      text-align: center; font-size: 11px; color: #444; line-height: 1.7;
+    }
+    .page-footer a { color: #666; }
   </style>
 </head>
 <body>
 
-<!-- MAIN PAGE -->
-<div id="main-page">
+<!-- BACK BUTTON (global) -->
+<button class="back-btn" id="back-btn" onclick="goBack()">← Back</button>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-badge">Urgent Notice For Homeowners</div>
-    <h1>
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- PAGE 1 — HERO -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="page active" id="page-hero">
+  <div class="page-inner">
+    <div class="badge">⚠ Urgent Notice For Homeowners</div>
+    <h1 class="headline">
       Your Roof<br>
-      <span class="accent">May Be At</span><br>
-      <span class="accent2">Risk Right Now.</span>
+      <span class="red">May Be At</span><br>
+      <span class="orange">Risk Right Now.</span>
     </h1>
-    <p class="hero-sub">
-      Insurance companies are <strong>canceling policies</strong> on roofs over 15 years old — 
-      no warning, no reason required. A free inspection takes 30 minutes and could save your coverage.
+    <p class="subhead">
+      Insurance companies are <strong>canceling policies</strong> on roofs over 15 years old —
+      no warning, no reason required.
     </p>
-    <a href="file:///Users/nealscoppettuolo/Downloads/index_1.html#sign-form" class="cta-btn">
-      ✓ Claim Your Free Inspection
-    </a>
-    <div class="hero-trust">
+    <div class="btn-stack">
+      <button class="btn-primary" onclick="goTo(&#39;page-form&#39;)">✓ Claim Your Free Inspection</button>
+      <button class="btn-secondary" onclick="goTo(&#39;page-risk&#39;)">What Happens If You Wait →</button>
+      <button class="btn-secondary" onclick="goTo(&#39;page-process&#39;)">The Process →</button>
+    </div>
+    <div class="trust-bar">
       <span>Licensed &amp; Insured</span>
       <span>No Out of Pocket Cost</span>
       <span>30 Minutes</span>
       <span>Zero Pressure</span>
     </div>
-  </section>
-
-  <!-- URGENCY STRIP -->
-  <div class="urgency-strip">
-    <p>Insurance companies don't need damage to drop you — age alone is enough.</p>
   </div>
+  <div class="page-footer">
+    U.S. Shingle &amp; Metal LLC · License #CCC1331960 ·
+    <a href="tel:7277615200">(727) 761-5200</a>
+  </div>
+</div>
 
-  <!-- RISK SECTION -->
-  <section class="risk-section">
-    <div class="section-label">Why This Can't Wait</div>
-    <div class="section-title">What Happens<br>If You Wait</div>
-    <div class="risk-cards">
-      <div class="risk-card">
-        <div class="risk-num">1</div>
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- PAGE 2 — WHAT HAPPENS IF YOU WAIT -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="page" id="page-risk">
+  <div class="page-inner" style="justify-content:flex-start; padding-top:72px;">
+    <div class="sec-label">Why This Can't Wait</div>
+    <h1 class="headline" style="font-size:clamp(34px,9vw,54px); margin-bottom:20px;">
+      What Happens<br><span class="red">If You Wait</span>
+    </h1>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-num">1</div>
         <div>
           <h3>Your Policy Gets Cancelled</h3>
           <p>Insurers are dropping homeowners the moment a roof hits 15 years. They don't need damage — age alone qualifies.</p>
         </div>
       </div>
-      <div class="risk-card">
-        <div class="risk-num">2</div>
+      <div class="card">
+        <div class="card-num">2</div>
         <div>
           <h3>Storm Damage Goes Unclaimed</h3>
-          <p>Most homeowners have claimable damage and don't know it. Every day you wait is money left on the table — or a claim that expires.</p>
+          <p>Most homeowners have claimable damage and don't know it. Every day you wait is money left on the table.</p>
         </div>
       </div>
-      <div class="risk-card">
-        <div class="risk-num">3</div>
+      <div class="card">
+        <div class="card-num">3</div>
         <div>
           <h3>You Pay Out of Pocket</h3>
           <p>Without coverage, a roof replacement runs $15,000–$30,000. With it, your cost may be zero.</p>
         </div>
       </div>
     </div>
+
     <div class="stat-box">
       <div class="stat-num">30%</div>
-      <div class="stat-text">Homeowners with a new roof save an average of 30% on their annual insurance premium. The inspection is free.</div>
+      <div class="stat-text">Homeowners with a new roof save an average of 30% on their annual insurance premium.</div>
     </div>
-  </section>
 
-  <!-- HOW IT WORKS -->
-  <section class="how-section">
-    <div class="section-label">The Process</div>
-    <div class="section-title">Simple.<br>Fast. Free.</div>
+    <div class="btn-stack">
+      <button class="btn-primary" onclick="goTo(&#39;page-form&#39;)">✓ Claim Your Free Inspection</button>
+    </div>
+  </div>
+  <div class="page-footer">
+    U.S. Shingle &amp; Metal LLC · License #CCC1331960 ·
+    <a href="tel:7277615200">(727) 761-5200</a>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- PAGE 3 — THE PROCESS -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="page" id="page-process">
+  <div class="page-inner" style="justify-content:flex-start; padding-top:72px;">
+    <div class="sec-label">How It Works</div>
+    <h1 class="headline" style="font-size:clamp(34px,9vw,54px); margin-bottom:20px;">
+      Simple.<br><span class="orange">Fast. Free.</span>
+    </h1>
 
     <div class="steps">
       <div class="step">
@@ -790,7 +616,7 @@
         </div>
         <div class="step-content">
           <h3>Sign Up Below</h3>
-          <p>Takes 60 seconds. We verify your address and schedule around you.</p>
+          <p>Takes 60 seconds. We schedule around you — no disruption.</p>
         </div>
       </div>
       <div class="step">
@@ -800,7 +626,7 @@
         </div>
         <div class="step-content">
           <h3>We Come To You</h3>
-          <p>A licensed inspector visits your property — top to bottom, front to back. About 30 minutes. No disruption to your day.</p>
+          <p>A licensed inspector visits your property — top to bottom. About 30 minutes.</p>
         </div>
       </div>
       <div class="step">
@@ -810,7 +636,7 @@
         </div>
         <div class="step-content">
           <h3>You Get the Full Picture</h3>
-          <p>We tell you exactly what we found and walk you through every option. You decide. Zero pressure — ever.</p>
+          <p>We walk you through everything we found. You decide. Zero pressure — ever.</p>
         </div>
       </div>
     </div>
@@ -820,33 +646,43 @@
         <div class="outcome-icon">⚡</div>
         <div>
           <h4>Storm Damage Found</h4>
-          <p>A licensed Public Adjuster files your insurance claim. Zero cost to you. 90%+ win rate.</p>
+          <p>A Public Adjuster files your claim. Zero cost to you. 90%+ win rate.</p>
         </div>
       </div>
       <div class="outcome-card">
         <div class="outcome-icon">🏠</div>
         <div>
           <h4>Roof Needs Replacing</h4>
-          <p>Flexible financing available. New roof, lower premium, stay covered.</p>
+          <p>Flexible financing. New roof, lower premium, stay covered.</p>
         </div>
       </div>
       <div class="outcome-card">
         <div class="outcome-icon">✅</div>
         <div>
           <h4>Roof Is Fine</h4>
-          <p>We certify it in writing. A licensed report your insurer has to accept.</p>
+          <p>We certify it in writing. A licensed report your insurer must accept.</p>
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- SIGN FORM -->
-  <section class="form-section" id="sign-form">
-    <div class="section-label">Claim Your Free Inspection</div>
-    <div class="section-title">Sign Up in <span>60 Seconds</span></div>
-    <p style="margin-top: 8px; font-size: 15px; color: #555; line-height: 1.6;">
-      No cost. No obligation. A licensed inspector will contact you to schedule.
-    </p>
+    <div class="btn-stack">
+      <button class="btn-primary" onclick="goTo(&#39;page-form&#39;)">✓ Claim Your Free Inspection</button>
+    </div>
+  </div>
+  <div class="page-footer">
+    U.S. Shingle &amp; Metal LLC · License #CCC1331960 ·
+    <a href="tel:7277615200">(727) 761-5200</a>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- PAGE 4 — FORM -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="page" id="page-form">
+  <div class="page-inner" style="justify-content:flex-start; padding-top:64px;">
+    <div class="sec-label">Free Roof Inspection</div>
+    <div class="form-title">Sign Up in <span>60 Seconds</span></div>
+    <p class="form-sub">No cost. No obligation. A licensed inspector will contact you to schedule.</p>
 
     <div class="form-card">
       <div class="form-group">
@@ -880,101 +716,130 @@
         <input type="email" id="f-email" placeholder="john@email.com" autocomplete="email" inputmode="email">
       </div>
 
-      <!-- Signature -->
-      <div class="sig-section">
+      <div>
         <div class="sig-label">Your Signature <span style="color:var(--red)">*</span></div>
         <div class="sig-toggle">
           <button class="sig-toggle-btn active" id="btn-draw" onclick="setDrawMode()">✍️ Draw</button>
           <button class="sig-toggle-btn" id="btn-type" onclick="setTypeMode()">⌨️ Type</button>
         </div>
-
         <div id="sig-canvas-wrap">
-          <canvas id="sig-canvas" width="984" height="280"></canvas>
+          <canvas id="sig-canvas" width="0" height="260"></canvas>
           <div class="sig-placeholder" id="sig-hint">Sign here with your finger or mouse</div>
         </div>
         <button class="sig-clear" onclick="clearSig()">↺ Clear signature</button>
-
         <div id="typed-sig-wrap">
           <textarea id="typed-sig-input" placeholder="Type your full name..."></textarea>
         </div>
       </div>
 
-      <!-- Agreement text -->
       <div class="agreement-box">
         <strong>Free Roof Inspection Agreement</strong><br><br>
-        By signing below, I hereby authorize U.S. Shingle &amp; Metal LLC ("Company") to conduct a free visual inspection of the roofing system at the property address provided above. I understand and agree that: (1) This inspection is provided at no cost and no obligation to me; (2) The Company will inspect the roof and provide a written findings report; (3) This agreement does not obligate me to purchase any products or services; (4) The Company is licensed and insured; (5) A representative may contact me to schedule and confirm the inspection appointment. I certify that I am the property owner or authorized representative.
+        By signing, I authorize U.S. Shingle &amp; Metal LLC to conduct a free visual inspection of the roofing system at the address provided. I understand this inspection is provided at no cost and no obligation. This agreement does not obligate me to purchase any products or services. I certify that I am the property owner or authorized representative.
       </div>
 
-      <button class="submit-btn" id="submit-btn" onclick="submitForm()">
+      <button class="form-submit-btn" id="submit-btn" onclick="submitForm()">
         ✓ Schedule My Free Inspection
       </button>
-
       <div class="form-trust">
-        <span>🔒 Your information is secure and never sold</span>
-        <span>Licensed &nbsp;·&nbsp; Insured &nbsp;·&nbsp; CCC1331960</span>
+        🔒 Your information is secure and never sold<br>
+        Licensed · Insured · CCC1331960
       </div>
     </div>
-  </section>
+  </div>
+  <div class="page-footer" style="background:#e8e4dc; color:#888;">
+    U.S. Shingle &amp; Metal LLC · <a href="tel:7277615200" style="color:#999;">(727) 761-5200</a>
+  </div>
+</div>
 
-  <footer>
-    <strong>U.S. Shingle &amp; Metal LLC</strong><br>
-    3845 Gateway Centre Blvd Suite 300 · Pinellas Park, FL 33782<br>
-    <a href="tel:7277615200">(727) 761-5200</a> · <a href="mailto:inspection@shingleusa.com">inspection@shingleusa.com</a><br><br>
-    License #CCC1331960 · This is a paid advertisement from a licensed roofing contractor.<br>
-    Not affiliated with any government agency or insurance company.
-  </footer>
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- PAGE 5 — THANK YOU -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="page" id="page-thanks">
+  <div class="page-inner">
+    <div class="ty-icon">✅</div>
+    <div class="ty-title">You're <span>Confirmed!</span></div>
+    <p class="ty-sub">Your free inspection request has been received. A licensed inspector will be in touch shortly.</p>
 
-</div><!-- /main-page -->
+    <div class="ty-steps">
+      <div class="ty-step">
+        <div class="ty-step-num">1</div>
+        <p><strong>Check your email</strong> — your confirmation has been sent.</p>
+      </div>
+      <div class="ty-step">
+        <div class="ty-step-num">2</div>
+        <p><strong>Expect a call or text</strong> within 24 hours to schedule.</p>
+      </div>
+      <div class="ty-step">
+        <div class="ty-step-num">3</div>
+        <p><strong>Inspection takes ~30 minutes.</strong> No need to be on the roof.</p>
+      </div>
+      <div class="ty-step">
+        <div class="ty-step-num">4</div>
+        <p><strong>We walk you through everything</strong> we find. No surprises. No pressure.</p>
+      </div>
+    </div>
 
-<!-- SUBMITTING OVERLAY -->
+    <div class="ty-contact">
+      <p>Questions? Call or text anytime:</p>
+      <a href="tel:7277615200">(727) 761-5200</a>
+    </div>
+  </div>
+</div>
+
+<!-- LOADING OVERLAY -->
 <div class="overlay" id="overlay">
   <div class="overlay-card">
     <div class="spinner"></div>
     <h3>Submitting...</h3>
-    <p>Sending your inspection request. Please don't close this page.</p>
-  </div>
-</div>
-
-<!-- THANK YOU PAGE -->
-<div id="thankyou">
-  <div class="ty-icon">✅</div>
-  <div class="ty-title">You're <span>Confirmed!</span></div>
-  <p class="ty-sub">
-    Your free inspection request has been received. A licensed inspector will be in touch shortly to schedule your visit.
-  </p>
-  <div class="ty-steps">
-    <div class="ty-step">
-      <div class="ty-step-num">1</div>
-      <p><strong>Check your email</strong> — your signed agreement and confirmation have been sent.</p>
-    </div>
-    <div class="ty-step">
-      <div class="ty-step-num">2</div>
-      <p><strong>Expect a call or text</strong> from our team within 24 hours to schedule your inspection.</p>
-    </div>
-    <div class="ty-step">
-      <div class="ty-step-num">3</div>
-      <p><strong>The inspection takes ~30 minutes.</strong> You don't need to be on the roof — just available.</p>
-    </div>
-    <div class="ty-step">
-      <div class="ty-step-num">4</div>
-      <p><strong>We'll walk you through everything</strong> we find. No surprises. No pressure.</p>
-    </div>
-  </div>
-  <div class="ty-contact">
-    <p>Questions? Call or text us anytime:</p>
-    <a href="tel:7277615200">(727) 761-5200</a>
+    <p>Please don't close this page.</p>
   </div>
 </div>
 
 <script>
-// ── Rep ID from URL ─────────────────────────────────────────────
 const params = new URLSearchParams(window.location.search);
-const REP_ID = params.get('rep') || '';
+const REP_ID   = params.get('rep')  || '';
 const REP_NAME = params.get('name') || '';
+
+// ── Page navigation ─────────────────────────────────────────────
+let history = ['page-hero'];
+
+function goTo(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(pageId).classList.add('active');
+  document.getElementById(pageId).scrollTop = 0;
+  if (pageId !== 'page-hero') history.push(pageId);
+  updateBack();
+}
+
+function goBack() {
+  if (history.length > 1) {
+    history.pop();
+    const prev = history[history.length - 1];
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(prev).classList.add('active');
+    document.getElementById(prev).scrollTop = 0;
+  }
+  updateBack();
+}
+
+function updateBack() {
+  const btn = document.getElementById('back-btn');
+  if (history.length > 1 && history[history.length-1] !== 'page-thanks') {
+    btn.classList.add('show');
+    // Dark back button on form page
+    if (history[history.length-1] === 'page-form') {
+      btn.style.color = '#111'; btn.style.background = 'rgba(0,0,0,0.06)'; btn.style.borderColor = 'rgba(0,0,0,0.12)';
+    } else {
+      btn.style.color = '#fff'; btn.style.background = 'rgba(255,255,255,0.1)'; btn.style.borderColor = 'rgba(255,255,255,0.15)';
+    }
+  } else {
+    btn.classList.remove('show');
+  }
+}
 
 // ── Phone formatting ────────────────────────────────────────────
 document.getElementById('f-phone').addEventListener('input', function(e) {
-  let v = e.target.value.replace(/\D/g, '').slice(0, 10);
+  let v = e.target.value.replace(/\D/g,'').slice(0,10);
   if (v.length >= 7) v = `(${v.slice(0,3)}) ${v.slice(3,6)}-${v.slice(6)}`;
   else if (v.length >= 4) v = `(${v.slice(0,3)}) ${v.slice(3)}`;
   else if (v.length > 0) v = `(${v}`;
@@ -985,90 +850,70 @@ document.getElementById('f-state').addEventListener('input', function(e) {
   e.target.value = e.target.value.toUpperCase();
 });
 
-// ── Signature pad ───────────────────────────────────────────────
+// ── Signature ───────────────────────────────────────────────────
 const canvas = document.getElementById('sig-canvas');
 const ctx = canvas.getContext('2d');
-let drawing = false;
-let hasSig = false;
+let drawing = false, hasSig = false;
 
 function resizeCanvas() {
   const wrap = document.getElementById('sig-canvas-wrap');
   const dpr = window.devicePixelRatio || 1;
-  canvas.width = wrap.offsetWidth * dpr;
-  canvas.height = 140 * dpr;
+  const w = wrap.offsetWidth;
+  canvas.width = w * dpr; canvas.height = 130 * dpr;
   ctx.scale(dpr, dpr);
-  ctx.strokeStyle = '#111';
-  ctx.lineWidth = 2.5;
-  ctx.lineCap = 'round';
-  ctx.lineJoin = 'round';
+  ctx.strokeStyle = '#111'; ctx.lineWidth = 2.5; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
 }
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
 function getPos(e) {
   const r = canvas.getBoundingClientRect();
-  const touch = e.touches ? e.touches[0] : e;
-  return { x: touch.clientX - r.left, y: touch.clientY - r.top };
+  const t = e.touches ? e.touches[0] : e;
+  return { x: t.clientX - r.left, y: t.clientY - r.top };
 }
-
-canvas.addEventListener('mousedown', e => { drawing = true; ctx.beginPath(); const p = getPos(e); ctx.moveTo(p.x, p.y); });
-canvas.addEventListener('mousemove', e => { if (!drawing) return; const p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); hasSig = true; document.getElementById('sig-hint').style.display = 'none'; });
-canvas.addEventListener('mouseup', () => drawing = false);
-canvas.addEventListener('mouseleave', () => drawing = false);
-
-canvas.addEventListener('touchstart', e => { e.preventDefault(); drawing = true; ctx.beginPath(); const p = getPos(e); ctx.moveTo(p.x, p.y); }, { passive: false });
-canvas.addEventListener('touchmove', e => { e.preventDefault(); if (!drawing) return; const p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); hasSig = true; document.getElementById('sig-hint').style.display = 'none'; }, { passive: false });
-canvas.addEventListener('touchend', () => drawing = false);
+canvas.addEventListener('mousedown', e => { drawing=true; ctx.beginPath(); const p=getPos(e); ctx.moveTo(p.x,p.y); });
+canvas.addEventListener('mousemove', e => { if(!drawing)return; const p=getPos(e); ctx.lineTo(p.x,p.y); ctx.stroke(); hasSig=true; document.getElementById('sig-hint').style.display='none'; });
+canvas.addEventListener('mouseup', ()=>drawing=false);
+canvas.addEventListener('mouseleave', ()=>drawing=false);
+canvas.addEventListener('touchstart', e=>{ e.preventDefault(); drawing=true; ctx.beginPath(); const p=getPos(e); ctx.moveTo(p.x,p.y); },{passive:false});
+canvas.addEventListener('touchmove', e=>{ e.preventDefault(); if(!drawing)return; const p=getPos(e); ctx.lineTo(p.x,p.y); ctx.stroke(); hasSig=true; document.getElementById('sig-hint').style.display='none'; },{passive:false});
+canvas.addEventListener('touchend', ()=>drawing=false);
 
 function clearSig() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  hasSig = false;
-  document.getElementById('sig-hint').style.display = 'flex';
+  ctx.clearRect(0,0,canvas.width,canvas.height); hasSig=false;
+  document.getElementById('sig-hint').style.display='flex';
 }
-
 function setDrawMode() {
   document.getElementById('btn-draw').classList.add('active');
   document.getElementById('btn-type').classList.remove('active');
-  document.getElementById('sig-canvas-wrap').style.display = 'block';
-  document.querySelector('.sig-clear').style.display = 'inline';
-  document.getElementById('typed-sig-wrap').style.display = 'none';
+  document.getElementById('sig-canvas-wrap').style.display='block';
+  document.querySelector('.sig-clear').style.display='inline';
+  document.getElementById('typed-sig-wrap').style.display='none';
 }
-
 function setTypeMode() {
   document.getElementById('btn-type').classList.add('active');
   document.getElementById('btn-draw').classList.remove('active');
-  document.getElementById('sig-canvas-wrap').style.display = 'none';
-  document.querySelector('.sig-clear').style.display = 'none';
-  document.getElementById('typed-sig-wrap').style.display = 'block';
+  document.getElementById('sig-canvas-wrap').style.display='none';
+  document.querySelector('.sig-clear').style.display='none';
+  document.getElementById('typed-sig-wrap').style.display='block';
 }
-
 function getSigDataUrl() {
   if (document.getElementById('btn-draw').classList.contains('active')) {
     return hasSig ? canvas.toDataURL('image/png') : null;
   } else {
     const text = document.getElementById('typed-sig-input').value.trim();
     if (!text) return null;
-    // Render typed sig to canvas
     const tc = document.createElement('canvas');
-    tc.width = 400; tc.height = 100;
+    tc.width=400; tc.height=100;
     const tx = tc.getContext('2d');
-    tx.fillStyle = '#fff';
-    tx.fillRect(0,0,400,100);
-    tx.fillStyle = '#111';
-    tx.font = "42px 'Brush Script MT', cursive";
-    tx.fillText(text, 20, 70);
+    tx.fillStyle='#fff'; tx.fillRect(0,0,400,100);
+    tx.fillStyle='#111'; tx.font="42px 'Brush Script MT',cursive";
+    tx.fillText(text,20,70);
     return tc.toDataURL('image/png');
   }
 }
 
-// ── PDF generation (minimal — just signature on form) ───────────
-async function generatePDF(formData, sigDataUrl) {
-  // Build a simple hidden printable and use html2canvas-like approach
-  // For simplicity, we'll send the sig as base64 and let the server handle it
-  return sigDataUrl;
-}
-
-// ── Form submission ─────────────────────────────────────────────
+// ── Submit ──────────────────────────────────────────────────────
 async function submitForm() {
   const name    = document.getElementById('f-name').value.trim();
   const address = document.getElementById('f-address').value.trim();
@@ -1079,7 +924,6 @@ async function submitForm() {
   const email   = document.getElementById('f-email').value.trim();
   const sigUrl  = getSigDataUrl();
 
-  // Validate
   let errors = [];
   if (!name)    errors.push('f-name');
   if (!address) errors.push('f-address');
@@ -1092,58 +936,41 @@ async function submitForm() {
   document.querySelectorAll('.form-group input').forEach(i => i.classList.remove('error'));
   if (errors.length) {
     errors.forEach(id => document.getElementById(id).classList.add('error'));
-    document.getElementById(errors[0]).scrollIntoView({ behavior: 'smooth', block: 'center' });
+    document.getElementById(errors[0]).focus();
     return;
   }
 
-  // Show overlay
   document.getElementById('overlay').classList.add('show');
   document.getElementById('submit-btn').disabled = true;
 
   try {
-    const signedAt = new Date().toISOString();
-    const nameParts = name.trim().split(' ');
-    const firstName = nameParts[0];
-    const lastName = nameParts.slice(1).join(' ') || '';
+    const firstName = name.split(' ')[0];
 
-    // 1. Send homeowner email
     await fetch('/.netlify/functions/send-email', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         to: [email],
         subject: 'Your Free Roof Inspection Request — U.S. Shingle & Metal',
-        html: `
-          <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;">
-            <div style="background:#1a1a1a;padding:28px 32px;border-radius:8px 8px 0 0;">
-              <h1 style="color:#fff;margin:0;font-size:24px;">✅ Inspection Request Confirmed</h1>
-              <p style="color:rgba(255,255,255,0.7);margin:8px 0 0;font-size:15px;">U.S. Shingle &amp; Metal LLC</p>
+        html: `<div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;">
+          <div style="background:#1a1a1a;padding:28px 32px;border-radius:8px 8px 0 0;">
+            <h1 style="color:#fff;margin:0;font-size:22px;">✅ Inspection Request Confirmed</h1>
+            <p style="color:rgba(255,255,255,0.6);margin:6px 0 0;font-size:14px;">U.S. Shingle &amp; Metal LLC</p>
+          </div>
+          <div style="background:#f9f9f9;padding:28px 32px;border-radius:0 0 8px 8px;border:1px solid #e5e5e5;border-top:none;">
+            <p style="font-size:16px;color:#222;">Hi ${firstName},</p>
+            <p style="font-size:15px;color:#444;line-height:1.6;">Thank you for signing up for your <strong>free roof inspection</strong>. A licensed inspector will be in touch within 24 hours to schedule your visit.</p>
+            <div style="background:#fff;border:1px solid #e5e5e5;border-radius:6px;padding:16px 20px;margin:20px 0;">
+              <p style="margin:0 0 6px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#888;">Inspection Address</p>
+              <p style="margin:0;font-size:16px;font-weight:600;color:#222;">${name}<br/>${address}, ${city}, ${state} ${zip}</p>
             </div>
-            <div style="background:#f9f9f9;padding:28px 32px;border-radius:0 0 8px 8px;border:1px solid #e5e5e5;border-top:none;">
-              <p style="font-size:16px;color:#222;">Hi ${firstName},</p>
-              <p style="font-size:15px;color:#444;line-height:1.6;">
-                Thank you for signing up for your <strong>free roof inspection</strong>. 
-                A licensed inspector will be in touch within 24 hours to schedule your visit.
-              </p>
-              <div style="background:#fff;border:1px solid #e5e5e5;border-radius:6px;padding:16px 20px;margin:20px 0;">
-                <p style="margin:0 0 6px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#888;">Inspection Address</p>
-                <p style="margin:0;font-size:16px;font-weight:600;color:#222;">${name}<br/>${address}, ${city}, ${state} ${zip}</p>
-              </div>
-              <p style="font-size:14px;color:#666;line-height:1.6;">
-                Questions? Call or text us anytime at <a href="tel:7277615200" style="color:#E8251A;font-weight:600;">(727) 761-5200</a> 
-                or email <a href="mailto:inspection@shingleusa.com" style="color:#E8251A;">inspection@shingleusa.com</a>
-              </p>
-              <p style="font-size:12px;color:#999;margin-top:20px;border-top:1px solid #eee;padding-top:16px;">
-                U.S. Shingle &amp; Metal LLC · 3845 Gateway Centre Blvd Suite 300 · Pinellas Park, FL 33782<br/>
-                License #CCC1331960
-              </p>
-            </div>
-          </div>`,
+            <p style="font-size:14px;color:#666;">Questions? Call <a href="tel:7277615200" style="color:#E8251A;font-weight:600;">(727) 761-5200</a></p>
+            <p style="font-size:11px;color:#999;margin-top:16px;border-top:1px solid #eee;padding-top:14px;">U.S. Shingle &amp; Metal LLC · 3845 Gateway Centre Blvd Suite 300 · Pinellas Park, FL 33782 · License #CCC1331960</p>
+          </div></div>`,
         bcc: ['inspection@shingleusa.com'],
       }),
-    }).catch(e => console.warn('Homeowner email failed:', e));
+    }).catch(e => console.warn('Email failed:', e));
 
-    // 2. JN Sync
     fetch('/.netlify/functions/jobnimbus-sync', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -1159,22 +986,16 @@ async function submitForm() {
         pdfBase64: sigUrl ? sigUrl.split(',')[1] : null,
         pdfFilename: `Free-Roof-Inspection-${name.replace(/\s+/g,'-')}.pdf`,
       }),
-    }).then(r => r.json()).then(d => console.log('JN sync:', d)).catch(e => console.warn('JN sync:', e));
+    }).then(r=>r.json()).then(d=>console.log('JN:',d)).catch(e=>console.warn('JN:',e));
 
-    // 3. Rep notification email (if rep email available — sent via activity email)
-    // Activity email is handled by JN sync function
-
-    // Show thank you
     document.getElementById('overlay').classList.remove('show');
-    document.getElementById('main-page').style.display = 'none';
-    const ty = document.getElementById('thankyou');
-    ty.classList.add('show');
-    window.scrollTo({ top: 0 });
+    history = ['page-hero'];
+    goTo('page-thanks');
 
   } catch(err) {
     document.getElementById('overlay').classList.remove('show');
     document.getElementById('submit-btn').disabled = false;
-    alert('Something went wrong. Please try again or call us at (727) 761-5200.');
+    alert('Something went wrong. Please try again or call (727) 761-5200.');
     console.error(err);
   }
 }
