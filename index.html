@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-  <title>Free Roof Inspection — U.S. Shingle & Metal</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<!-- saved from url=(0053)file:///Users/nealscoppettuolo/Downloads/index_1.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Free Roof Inspection — U.S. Shingle &amp; Metal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com/">
+  <link href="./index_files/css2" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -38,6 +38,8 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      align-items: center;
+      text-align: center;
       padding: 48px 24px 40px;
       position: relative;
       overflow: hidden;
@@ -67,7 +69,6 @@
       text-transform: uppercase;
       color: var(--orange);
       margin-bottom: 24px;
-      width: fit-content;
     }
 
     .hero-badge::before {
@@ -95,6 +96,7 @@
       line-height: 1.5;
       margin-bottom: 32px;
       max-width: 500px;
+      text-align: center;
     }
 
     .hero-sub strong { color: var(--white); }
@@ -129,6 +131,7 @@
       color: var(--gray);
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 16px;
       flex-wrap: wrap;
     }
@@ -156,7 +159,12 @@
     .risk-section {
       background: var(--dark2);
       padding: 56px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
+
+    .risk-section > * { width: 100%; max-width: 540px; }
 
     .section-label {
       font-family: 'Barlow Condensed', sans-serif;
@@ -240,7 +248,12 @@
     .how-section {
       background: var(--dark);
       padding: 56px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
+
+    .how-section > * { width: 100%; max-width: 540px; }
 
     .steps {
       display: grid;
@@ -347,7 +360,12 @@
       background: var(--cream);
       color: var(--dark);
       padding: 56px 24px 64px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
+
+    .form-section > * { width: 100%; max-width: 540px; }
 
     .form-section .section-label { color: var(--red); }
     .form-section .section-title { color: var(--dark); }
@@ -702,20 +720,20 @@
   <section class="hero">
     <div class="hero-badge">Urgent Notice For Homeowners</div>
     <h1>
-      Your Roof<br/>
-      <span class="accent">May Be At</span><br/>
+      Your Roof<br>
+      <span class="accent">May Be At</span><br>
       <span class="accent2">Risk Right Now.</span>
     </h1>
     <p class="hero-sub">
-      Insurance companies are <strong>canceling policies</strong> on roofs over 10 years old — 
+      Insurance companies are <strong>canceling policies</strong> on roofs over 15 years old — 
       no warning, no reason required. A free inspection takes 30 minutes and could save your coverage.
     </p>
-    <a href="#sign-form" class="cta-btn">
+    <a href="file:///Users/nealscoppettuolo/Downloads/index_1.html#sign-form" class="cta-btn">
       ✓ Claim Your Free Inspection
     </a>
     <div class="hero-trust">
       <span>Licensed &amp; Insured</span>
-      <span>No Cost Ever</span>
+      <span>No Out of Pocket Cost</span>
       <span>30 Minutes</span>
       <span>Zero Pressure</span>
     </div>
@@ -729,13 +747,13 @@
   <!-- RISK SECTION -->
   <section class="risk-section">
     <div class="section-label">Why This Can't Wait</div>
-    <div class="section-title">What Happens<br/>If You Wait</div>
+    <div class="section-title">What Happens<br>If You Wait</div>
     <div class="risk-cards">
       <div class="risk-card">
         <div class="risk-num">1</div>
         <div>
           <h3>Your Policy Gets Cancelled</h3>
-          <p>Insurers are dropping homeowners the moment a roof hits 10–15 years. They don't need damage — age alone qualifies.</p>
+          <p>Insurers are dropping homeowners the moment a roof hits 15 years. They don't need damage — age alone qualifies.</p>
         </div>
       </div>
       <div class="risk-card">
@@ -762,7 +780,7 @@
   <!-- HOW IT WORKS -->
   <section class="how-section">
     <div class="section-label">The Process</div>
-    <div class="section-title">Simple.<br/>Fast. Free.</div>
+    <div class="section-title">Simple.<br>Fast. Free.</div>
 
     <div class="steps">
       <div class="step">
@@ -833,33 +851,33 @@
     <div class="form-card">
       <div class="form-group">
         <label>Full Name <span>*</span></label>
-        <input type="text" id="f-name" placeholder="John Smith" autocomplete="name" />
+        <input type="text" id="f-name" placeholder="John Smith" autocomplete="name">
       </div>
       <div class="form-group">
         <label>Property Address <span>*</span></label>
-        <input type="text" id="f-address" placeholder="123 Main Street" autocomplete="street-address" />
+        <input type="text" id="f-address" placeholder="123 Main Street" autocomplete="street-address">
       </div>
       <div class="form-row">
         <div class="form-group">
           <label>City <span>*</span></label>
-          <input type="text" id="f-city" placeholder="Tampa" autocomplete="address-level2" />
+          <input type="text" id="f-city" placeholder="Tampa" autocomplete="address-level2">
         </div>
         <div class="form-group">
           <label>ZIP <span>*</span></label>
-          <input type="tel" id="f-zip" placeholder="33601" maxlength="5" inputmode="numeric" />
+          <input type="tel" id="f-zip" placeholder="33601" maxlength="5" inputmode="numeric">
         </div>
       </div>
       <div class="form-group">
         <label>State</label>
-        <input type="text" id="f-state" placeholder="FL" maxlength="2" style="text-transform:uppercase" />
+        <input type="text" id="f-state" placeholder="FL" maxlength="2" style="text-transform:uppercase">
       </div>
       <div class="form-group">
         <label>Mobile Phone <span>*</span></label>
-        <input type="tel" id="f-phone" placeholder="(813) 555-0000" autocomplete="tel" inputmode="tel" />
+        <input type="tel" id="f-phone" placeholder="(813) 555-0000" autocomplete="tel" inputmode="tel">
       </div>
       <div class="form-group">
         <label>Email Address <span>*</span></label>
-        <input type="email" id="f-email" placeholder="john@email.com" autocomplete="email" inputmode="email" />
+        <input type="email" id="f-email" placeholder="john@email.com" autocomplete="email" inputmode="email">
       </div>
 
       <!-- Signature -->
@@ -871,7 +889,7 @@
         </div>
 
         <div id="sig-canvas-wrap">
-          <canvas id="sig-canvas"></canvas>
+          <canvas id="sig-canvas" width="984" height="280"></canvas>
           <div class="sig-placeholder" id="sig-hint">Sign here with your finger or mouse</div>
         </div>
         <button class="sig-clear" onclick="clearSig()">↺ Clear signature</button>
@@ -883,7 +901,7 @@
 
       <!-- Agreement text -->
       <div class="agreement-box">
-        <strong>Free Roof Inspection Agreement</strong><br/><br/>
+        <strong>Free Roof Inspection Agreement</strong><br><br>
         By signing below, I hereby authorize U.S. Shingle &amp; Metal LLC ("Company") to conduct a free visual inspection of the roofing system at the property address provided above. I understand and agree that: (1) This inspection is provided at no cost and no obligation to me; (2) The Company will inspect the roof and provide a written findings report; (3) This agreement does not obligate me to purchase any products or services; (4) The Company is licensed and insured; (5) A representative may contact me to schedule and confirm the inspection appointment. I certify that I am the property owner or authorized representative.
       </div>
 
@@ -899,10 +917,10 @@
   </section>
 
   <footer>
-    <strong>U.S. Shingle &amp; Metal LLC</strong><br/>
-    3845 Gateway Centre Blvd Suite 300 · Pinellas Park, FL 33782<br/>
-    <a href="tel:7277615200">(727) 761-5200</a> · <a href="mailto:inspection@shingleusa.com">inspection@shingleusa.com</a><br/><br/>
-    License #CCC1331960 · This is a paid advertisement from a licensed roofing contractor.<br/>
+    <strong>U.S. Shingle &amp; Metal LLC</strong><br>
+    3845 Gateway Centre Blvd Suite 300 · Pinellas Park, FL 33782<br>
+    <a href="tel:7277615200">(727) 761-5200</a> · <a href="mailto:inspection@shingleusa.com">inspection@shingleusa.com</a><br><br>
+    License #CCC1331960 · This is a paid advertisement from a licensed roofing contractor.<br>
     Not affiliated with any government agency or insurance company.
   </footer>
 
@@ -1161,5 +1179,6 @@ async function submitForm() {
   }
 }
 </script>
-</body>
-</html>
+
+
+</body></html>
