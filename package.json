@@ -1,0 +1,8 @@
+{
+  "name": "inspection-landing",
+  "version": "1.0.0",
+  "description": "Free roof inspection landing page",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
